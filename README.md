@@ -30,7 +30,7 @@ WP Scrap & Rewrite est un plugin qui vous permet de réécrire automatiquement d
 
 1. **Téléchargez le fichier ZIP du plugin :**
 
-   Depuis la page de WP Scrap & Rewrite, téléchargez le fichier ZIP du plugin : https://kevin-benabdelhak.fr/plugins/wp-scrap-and-rewrite/
+   Depuis la page de WP Scrap & Rewrite, téléchargez le fichier ZIP du plugin : https://kevin-benabdelhak.fr/plugins/wp-scrap-rewrite/
 
 2. **Uploader le fichier ZIP du plugin :**
    - Allez dans le panneau d'administration de WordPress et cliquez sur "Extensions" > "Ajouter".
