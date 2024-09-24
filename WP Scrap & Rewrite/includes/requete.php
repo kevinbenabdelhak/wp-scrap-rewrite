@@ -14,7 +14,8 @@ function rewrite_url_content() {
 
     // Récupérer le style d'écriture et la clé API depuis les options
     $style_of_writing = get_option('wp_scrap_and_rewrite_style_of_writing', '');
-    $api_key = get_option('wp_scrap_and_rewrite_openai_api_key', ''); // Nouvelle ligne pour récupérer la clé API
+    $api_key = get_option('wp_scrap_and_rewrite_openai_api_key', ''); 
+    $openai_model = get_option('wp_scrap_and_rewrite_openai_model', 'gpt-4o-mini'); // Nouvelle ligne pour récupérer le modèle OpenAI
 
     if (empty($api_key)) {
         wp_send_json_error(['data' => 'Clé API OpenAI non configurée.']);
@@ -45,7 +46,7 @@ function rewrite_url_content() {
         [
             'role' => 'user',
             'content' => [
-                ['type' => 'text', 'text' => 'Réécris cet article et donne la réponse dans une variable "reponse" au format HTML balisé standard au format JSON. Commence par la balise <h1>. Voici les balises acceptées : h1, h2, h3, h4, p, span, strong, ul, ol, li, dfn, a, table, tr, th, td. Donne un JSON avec la variable "reponse" et le contenu réécris.']
+                ['type' => 'text', 'text' => 'Réécris cet article et donne la réponse dans une variable "reponse" au format HTML balisé standard au format JSON. Met une limite de 300 mots maximum et 50 mots minimum. Commence par la balise <h1>. Voici les balises acceptées : h1, h2, h3, h4, p, span, strong, ul, ol, li, dfn, a, table, tr, th, td. Donne un JSON avec la variable "reponse" et le contenu réécris.']
             ]
         ]
     ];
@@ -66,10 +67,10 @@ function rewrite_url_content() {
             'Content-Type' => 'application/json',
         ],
         'body' => json_encode([
-            'model' => 'gpt-4o-mini',
+            'model' => $openai_model,
             'messages' => $full_prompt,
             'temperature' => 1,
-            'max_tokens' => 10000,
+            'max_tokens' => 2000,
             'top_p' => 1,
             'frequency_penalty' => 0,
             'presence_penalty' => 0,
@@ -90,8 +91,8 @@ function rewrite_url_content() {
         $json_response = json_decode($data['choices'][0]['message']['content'], true);
 
         if (isset($json_response['reponse'])) {
-            $rewritten_content = str_replace(["&nbsp;", "\n"], "", trim($json_response['reponse']));
-            wp_send_json_success(['rewritten_content' => $rewritten_content]);
+       
+            wp_send_json_success(['rewritten_content' => $json_response['reponse']]);
         } else {
             wp_send_json_error(['data' => 'Aucune clé "reponse" trouvée dans la réponse JSON.']);
         }
@@ -99,3 +100,4 @@ function rewrite_url_content() {
         wp_send_json_error(['data' => 'Aucune réponse valide reçue de l\'API.']);
     }
 }
+?>

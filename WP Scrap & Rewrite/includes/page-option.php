@@ -22,18 +22,22 @@ function wp_scrap_and_rewrite_options_page() {
     }
 
     // Enregistrez l'option si le formulaire a été soumis
+    // 
     if (isset($_POST['submit'])) {
-        check_admin_referer('wp_scrap_and_rewrite_save_options'); // Vérification de la nonce
+        check_admin_referer('wp_scrap_and_rewrite_save_options'); 
         $style_of_writing = sanitize_textarea_field($_POST['style_of_writing']);
-        $openai_api_key = sanitize_text_field($_POST['openai_api_key']); // Nouvelle ligne pour enregistrer la clé API
+        $openai_api_key = sanitize_text_field($_POST['openai_api_key']); 
+        $openai_model = sanitize_text_field($_POST['openai_model']); 
         update_option('wp_scrap_and_rewrite_style_of_writing', $style_of_writing);
-        update_option('wp_scrap_and_rewrite_openai_api_key', $openai_api_key); // Nouvelle option pour la clé API
+        update_option('wp_scrap_and_rewrite_openai_api_key', $openai_api_key); 
+        update_option('wp_scrap_and_rewrite_openai_model', $openai_model); 
         echo '<div class="updated"><p>Options enregistrées.</p></div>';
     }
 
     // Récupération des options existantes
     $style_of_writing = get_option('wp_scrap_and_rewrite_style_of_writing', '');
     $openai_api_key = get_option('wp_scrap_and_rewrite_openai_api_key', ''); 
+    $openai_model = get_option('wp_scrap_and_rewrite_openai_model', 'gpt-4o-mini'); 
 
     // Vérification du plugin 'WP Ideogram API'
     $plugin_file = 'WP-Ideogram-API/wp-ideogram-api.php';
@@ -58,9 +62,21 @@ function wp_scrap_and_rewrite_options_page() {
                     <th scope="row">Style d'écriture</th>
                     <td><textarea name="style_of_writing" rows="10" cols="50" class="large-text"><?php echo esc_textarea($style_of_writing); ?></textarea></td>
                 </tr>
+                <tr valign="top">
+                    <th scope="row">Modèle OpenAI</th>
+                    <td>
+                        <select name="openai_model">
+                            <option value="gpt-4o-mini" <?php selected($openai_model, 'gpt-4o-mini'); ?>>gpt-4o-mini</option>
+                            <option value="gpt-4o" <?php selected($openai_model, 'gpt-4o'); ?>>gpt-4o</option>
+                            <option value="gpt-3.5-turbo" <?php selected($openai_model, 'gpt-3.5-turbo'); ?>>gpt-3.5-turbo</option>
+                            
+                        </select>
+                    </td>
+                </tr>
             </table>
             <?php submit_button('Enregistrer les options'); ?>
         </form>
     </div>
     <?php
 }
+?>

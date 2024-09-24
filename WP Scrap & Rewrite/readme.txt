@@ -10,7 +10,7 @@ Tested up to: 6.6.2
 
 Requires PHP: 7.0
 
-Stable tag: 1.0
+Stable tag: 1.1
 
 License: GPLv2 or later
 
@@ -73,7 +73,7 @@ WP Scrap & Rewrite est un plugin qui vous permet de réécrire automatiquement d
 
 
 == Mise à jour ==
-
+= 1.1 =* Correction sur l'éditeur (forcer le clic dans l'éditeur pour initialiser, sinon, la réponse n'apparaissais pas )* Ajout de gpt-4o et gpt-3.5-turbo
 = 1.0 =
 
 * Premier lancement du plugin.

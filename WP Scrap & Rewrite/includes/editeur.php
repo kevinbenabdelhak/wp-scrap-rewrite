@@ -21,7 +21,6 @@ function enqueue_rewrite_url_script() {
 
         <script type="text/javascript">
 jQuery(document).ready(function($) {
-    // Crée une entrée pour l'URL, le prompt, la case à cocher et le bouton
     if ($('#wp-rewriter-controls').length === 0) {
         var controlsDiv = $('<div>', { id: 'wp-rewriter-controls', style:'display: contents;' });
         
@@ -29,15 +28,14 @@ jQuery(document).ready(function($) {
             type: 'url',
             placeholder: 'Entrez l\'URL ici',
             class: 'wp-rewriter-url-input',
-            
-            style: 'margin: 0 0; width: 170px; font-size:12px;margin-left:5px;'
+            style: 'margin: 0 0; width: 170px; font-size:12px; margin-left:5px;'
         });
 
         var promptInput = $('<input>', {
             type: 'text',
             placeholder: 'Entrez votre prompt',
             class: 'wp-rewriter-prompt-input',
-            style: 'margin: 0 0; width: 300px; font-size:12px;margin-left:5px;'
+            style: 'margin: 0 0; width: 300px; font-size:12px; margin-left:5px;'
         });
 
         var replaceContentCheckbox = $('<input>', {
@@ -72,13 +70,27 @@ jQuery(document).ready(function($) {
             .append(replaceContentLabel)
             .append(generateButton)
             .append(loader);
+        
         $('#wp-content-media-buttons').after(controlsDiv);  // Ajoute les contrôles après les boutons média
 
         generateButton.on('click', function(e) {
             e.preventDefault(); // Empêche le rechargement de la page
 
-            // ici, ça force simplement le clic sur "Visuel" dans l'éditeur, afin que l'html soit bien interprété 
-            $('#content-tmce').click();
+            // initialisé TinyMCE 
+            tinyMCE.EditorManager.execCommand('mceAddEditor', true, 'content');
+            tinyMCE.execCommand('mceRemoveEditor', false, 'content');
+            tinyMCE.execCommand('mceAddEditor', false, 'content');
+
+            setTimeout(function() {
+                if (tinymce.get('content').initialized) {
+                    tinymce.get('content').focus();
+                } else {
+                    tinymce.EditorManager.once('AddEditor', function() {
+                        tinymce.get('content').focus();
+                    });
+                }
+            }, 300);
+
             var url = urlInput.val().trim();
             var prompt = promptInput.val().trim();
             var replaceContent = replaceContentCheckbox.is(':checked'); // vérifie si la case est cochée pour remplacer ou non le contenu
@@ -100,14 +112,13 @@ jQuery(document).ready(function($) {
                 },
                 success: function(response) {
                     if (response.success) {
-                        $('#content-tmce').click();
                         var contentToInsert = response.data.rewritten_content;
                         // Si la case à cocher est cochée, remplacer le contenu
                         if (replaceContent) {
-                            tinymce.activeEditor.setContent(contentToInsert);
+                            tinymce.get('content').setContent(contentToInsert);
                         } else {
                             // Sinon, ajouter le contenu à la fin de l'éditeur
-                            tinymce.activeEditor.setContent(tinymce.activeEditor.getContent() + contentToInsert);
+                            tinymce.get('content').setContent(tinymce.get('content').getContent() + contentToInsert);
                         }
                     } else {
                         alert('Erreur: ' + JSON.stringify(response.data));
