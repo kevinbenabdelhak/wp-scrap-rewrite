@@ -5,7 +5,7 @@
 **Requires at least:** 5.0  
 **Tested up to:** 6.6.2  
 **Requires PHP:** 7.0  
-**Stable tag:** 1.1  
+**Stable tag:** 1.2   
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -21,10 +21,11 @@ WP Scrap & Rewrite est un plugin qui vous permet de réécrire automatiquement d
 
 #### Fonctionnalités principales :
 
-1. **Réécriture de contenu à partir d'une URL ou d'un prompt personnalisé** : Entrez une URL ou un prompt et générez du contenu réécrit.
-2. **Remplacer entièrement ou ajouter au contenu existant** : Choisissez de remplacer le contenu existant ou d'ajouter le contenu réécrit à la suite.
-3. **Configurer la Clé API et le style d'écriture** : Entrez facilement votre clé API OpenAI et définissez le style d'écriture dans les options du plugin.
-4. **Interface intuitive dans l'éditeur** : Une interface utilisateur conviviale ajoutée dans l'éditeur de WordPress pour des opérations sans tracas.
+1. **Réécriture de contenu à partir d'une URL ou d'un prompt personnalisé** : Entrez une URL ou un prompt et générez du contenu réécrit
+2. **Remplacer entièrement ou ajouter au contenu existant** : Choisissez de remplacer le contenu existant ou d'ajouter le contenu réécrit à la suite
+3. **Configurer la Clé API et le style d'écriture** : Entrez facilement votre clé API OpenAI et définissez le style d'écriture dans les options du plugin
+4. **Interface intuitive dans l'éditeur** : Une interface utilisateur conviviale ajoutée dans l'éditeur de WordPress pour des opérations sans tracas
+5. **Possibilité de scrapper et réécrire en masse** : Vous pouvez utiliser les actions groupées pour indiquer plusieurs URLs, scrapper et réécrire en masse très facilement
 
 ## Installation
 
@@ -46,6 +47,13 @@ WP Scrap & Rewrite est un plugin qui vous permet de réécrire automatiquement d
    - Entrez votre clé API OpenAI et définissez le style d'écriture souhaité.
 
 ## Mise à jour
+
+### 1.2
+- Amélioration des prompts pour avoir quasiment le même nombre de mots que la page scrapé
+- Meilleure ciblage du contenu
+
+- Ajout du mode bulk avec les actions groupées pour scraper plusieurs pages 
+- Possibilité de sélectionner "brouillon" ou "publié" dans la page d'option
 
 ### 1.1
 - Initialisation de l'éditeur lors d'une génération ( clic forcé )
