@@ -4,7 +4,7 @@
 Plugin Name: WP Scrap & Rewrite
 Plugin URI: https://kevin-benabdelhak.fr/plugins/wp-scrap-rewrite/
 Description: WP Scrap & Rewrite est un plugin qui permet de réécrire le contenu d'une page à partir de l'URL facilement
-Version: 1.1
+Version: 1.2
 Author: Kevin Benabdelhak
 Author URI: https://kevin-benabdelhak.fr/
 Contributors: kevinbenabdelhak
@@ -17,3 +17,6 @@ if (!defined('ABSPATH')) {
 require_once plugin_dir_path(__FILE__) . 'includes/page-option.php';
 require_once plugin_dir_path(__FILE__) . 'includes/editeur.php';
 require_once plugin_dir_path(__FILE__) . 'includes/requete.php';
+
+require_once plugin_dir_path(__FILE__) . 'bulk/ajax-bulk.php'; 
+require_once plugin_dir_path(__FILE__) . 'bulk/actions-groupee.php';

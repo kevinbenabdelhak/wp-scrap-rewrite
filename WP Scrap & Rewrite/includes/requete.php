@@ -41,12 +41,12 @@ function rewrite_url_content() {
     $full_prompt = [
         [
             'role' => 'system',
-            'content' => trim($style_of_writing . ' ' . $html_content)
+            'content' => trim($style_of_writing . '. Voici la page html avec le contenu à paraphraser : ' . $html_content)
         ],
         [
             'role' => 'user',
             'content' => [
-                ['type' => 'text', 'text' => 'Réécris cet article et donne la réponse dans une variable "reponse" au format HTML balisé standard au format JSON. Met une limite de 300 mots maximum et 50 mots minimum. Commence par la balise <h1>. Voici les balises acceptées : h1, h2, h3, h4, p, span, strong, ul, ol, li, dfn, a, table, tr, th, td. Donne un JSON avec la variable "reponse" et le contenu réécris.']
+                ['type' => 'text', 'text' => 'Paraphrase cette page et indique la réponse dans une variable "reponse" au format HTML balisé standard au format JSON. Donne un JSON avec la variable "reponse" et le contenu réécris (même longueur de contenu avec les mêmes types de balises html que le contenu initial mais en paraphrasé et sans attribut). Je veux intégré ça dans un article, donc ne commence pas par le header mais par le début du contenu soit un paragraphe soit un h2. Je veux le même nombre de mots. Ne met pas le header et footer, ni les liens relatifs autour du contenu, juste le contenu du sujet de la page. Ne copie pas de formulaire de contact.']
             ]
         ]
     ];
@@ -70,7 +70,7 @@ function rewrite_url_content() {
             'model' => $openai_model,
             'messages' => $full_prompt,
             'temperature' => 1,
-            'max_tokens' => 2000,
+            'max_tokens' => 4000,
             'top_p' => 1,
             'frequency_penalty' => 0,
             'presence_penalty' => 0,
