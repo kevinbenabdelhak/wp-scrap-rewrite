@@ -48,6 +48,9 @@ WP Scrap & Rewrite est un plugin qui vous permet de réécrire automatiquement d
 
 ## Mise à jour
 
+### 1.3
+- Ajout de la prise en charge des modèles OpenAI gpt-4.1, gpt-4.1-mini et gpt-4.1-nano. Réorganisation de la liste des modèles.
+
 ### 1.2
 - Amélioration des prompts pour avoir quasiment le même nombre de mots que la page scrapé
 - Meilleure ciblage du contenu
