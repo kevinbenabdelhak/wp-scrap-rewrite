@@ -69,6 +69,8 @@ function wp_scrap_and_rewrite_options_page() {
                     <th scope="row">Modèle OpenAI</th>
                     <td>
                         <select name="openai_model">
+<option value="gpt-5-nano" <?php selected($openai_model, 'gpt-5-nano'); ?>>gpt-5-nano</option>
+<option value="gpt-5-mini" <?php selected($openai_model, 'gpt-5-mini'); ?>>gpt-5-mini</option>
 <option value="gpt-5" <?php selected($openai_model, 'gpt-5'); ?>>gpt-5</option>
 <option value="gpt-4.1" <?php selected($openai_model, 'gpt-4.1'); ?>>gpt-4.1</option>
 <option value="gpt-4.1-mini" <?php selected($openai_model, 'gpt-4.1-mini'); ?>>gpt-4.1-mini</option>
